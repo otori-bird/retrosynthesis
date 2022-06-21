@@ -1,0 +1,11 @@
+model: exp/USPTO-MIT_PtoR_aug5/average_model_230-239.pt
+src: dataset/USPTO-MIT_PtoR_aug5/test/src-test.txt
+output: exp/USPTO-MIT_PtoR_aug5/average_model_230-239-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 2048
+batch_type: tokens
+max_length: 1000
+seed: 0
+

@@ -1,0 +1,11 @@
+model: exp/USPTO_50K_PtoR_aug20/finetune_average_model_56-60.pt
+src: dataset/USPTO_50K_PtoR_aug20/test/src-test.txt
+output: exp/USPTO_50K_PtoR_aug20/finetune_average_model_56-60-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 8192
+batch_type: tokens
+max_length: 500
+seed: 0
+

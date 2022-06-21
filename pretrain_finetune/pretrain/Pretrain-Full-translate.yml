@@ -1,0 +1,11 @@
+model: exp/USPTO_full_pretrain_aug5_masked_token/pretrain_model_step_1000000.pt
+src: dataset/USPTO_full_pretrain_aug5_masked_token/test/src-test.txt
+output: exp/USPTO_full_pretrain_aug5_masked_token/pretrain_model_step_1000000-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 4096
+batch_type: tokens
+max_length: 1000
+seed: 0
+

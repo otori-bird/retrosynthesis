@@ -1,0 +1,58 @@
+data:
+  corpus_1:
+    path_src: dataset/USPTO-MIT_RtoP_aug5_separated/train/src-train.txt
+    path_tgt: dataset/USPTO-MIT_RtoP_aug5_separated/train/tgt-train.txt
+  valid:
+    path_src: dataset/USPTO-MIT_RtoP_aug5_separated/val/src-val.txt
+    path_tgt: dataset/USPTO-MIT_RtoP_aug5_separated/val/tgt-val.txt
+
+n_sample: 0
+save_data: dataset/USPTO-MIT_RtoP_aug5_separated/example
+src_vocab: dataset/USPTO-MIT_RtoP_aug5_separated/example.vocab.src
+tgt_vocab: dataset/USPTO-MIT_RtoP_aug5_separated/example.vocab.src
+share_vocab: 'true'
+src_seq_length: 1000
+tgt_seq_length: 1000
+overwrite: 'true'
+
+save_model: exp/USPTO-MIT_RtoP_aug5_separated/model.reactants-products
+save_checkpoint_steps: 10000
+keep_checkpoint: 40
+seed: 3435
+train_steps: 2000000
+valid_steps: 50000
+warmup_steps: 8000
+report_every: 1000
+
+decoder_type: transformer
+encoder_type: transformer
+word_vec_size: 512
+rnn_size: 512
+layers: 6
+transformer_ff: 2048
+heads: 8
+
+accum_count: 4
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 2.0
+max_grad_norm: 0.0
+
+batch_size: 4096
+batch_type: tokens
+valid_batch_size: 4096
+normalization: tokens
+dropout: 0.1
+label_smoothing: 0.0
+
+max_generator_batches: 32
+
+param_init: 0.0
+param_init_glorot: 'true'
+position_encoding: 'true'
+
+world_size: 1
+gpu_ranks:
+- 0

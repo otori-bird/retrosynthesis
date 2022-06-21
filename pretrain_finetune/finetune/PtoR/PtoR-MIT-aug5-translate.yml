@@ -1,0 +1,11 @@
+model: exp/USPTO-MIT_PtoR_aug5/finetuned_average_model_46-50.pt
+src: dataset/USPTO-MIT_PtoR_aug5/test/src-test.txt
+output: exp/USPTO-MIT_PtoR_aug5/finetuned_average_model_46-50-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 2048
+batch_type: tokens
+max_length: 1000
+seed: 0
+

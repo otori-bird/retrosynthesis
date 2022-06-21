@@ -1,0 +1,11 @@
+model: exp/USPTO-MIT_RtoP_aug5_mixed/average_model_196-200.pt
+src: dataset/USPTO-MIT_RtoP_aug5_mixed/test/src-test.txt
+output:  exp/USPTO-MIT_RtoP_aug5_mixed/average_model_196-200-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 4096
+batch_type: tokens
+max_length: 1000
+seed: 0
+

@@ -1,0 +1,13 @@
+model: exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_model.reactants-products_step_440000.pt
+#model: exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_46-50.pt
+src: dataset/USPTO-MIT_RtoP_aug5_mixed/test/src-test.txt
+#output:  exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_46-50-results.txt
+output:  exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_model.reactants-products_step_440000-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 4096
+batch_type: tokens
+max_length: 1000
+seed: 0
+

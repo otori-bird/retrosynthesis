@@ -1,0 +1,16 @@
+data:
+  corpus_1:
+    path_src: dataset/USPTO_50K_PtoR_aug20/train/src-train.txt
+    path_tgt: dataset/USPTO_50K_PtoR_aug20/train/tgt-train.txt
+  valid:
+    path_src: dataset/USPTO_50K_PtoR_aug20/val/src-val.txt
+    path_tgt: dataset/USPTO_50K_PtoR_aug20/val/tgt-val.txt
+
+n_sample: -1
+save_data: dataset/USPTO_50K_PtoR_aug20/example
+src_vocab: dataset/USPTO_50K_PtoR_aug20/example.vocab.src
+tgt_vocab: dataset/USPTO_50K_PtoR_aug20/example.vocab.src
+share_vocab: 'true'
+src_seq_length: 500
+tgt_seq_length: 500
+overwrite: 'true'

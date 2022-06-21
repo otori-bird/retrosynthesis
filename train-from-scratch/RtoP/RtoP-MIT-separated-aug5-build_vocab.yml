@@ -1,0 +1,16 @@
+data:
+  corpus_1:
+    path_src: dataset/USPTO-MIT_RtoP_aug5_separated/train/src-train.txt
+    path_tgt: dataset/USPTO-MIT_RtoP_aug5_separated/train/tgt-train.txt
+  valid:
+    path_src: dataset/USPTO-MIT_RtoP_aug5_separated/val/src-val.txt
+    path_tgt: dataset/USPTO-MIT_RtoP_aug5_separated/val/tgt-val.txt
+
+n_sample: -1
+save_data: dataset/USPTO-MIT_RtoP_aug5_separated/example
+src_vocab: dataset/USPTO-MIT_RtoP_aug5_separated/example.vocab.src
+tgt_vocab: dataset/USPTO-MIT_RtoP_aug5_separated/example.vocab.src
+share_vocab: 'true'
+src_seq_length: 1000
+tgt_seq_length: 1000
+overwrite: 'true'

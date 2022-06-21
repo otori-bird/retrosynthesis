@@ -1,0 +1,11 @@
+model: exp/USPTO_50K_P2S2R_aug20/S2R/average_model_96-100.pt
+src: dataset/USPTO_50K_P2S2R_aug20/S2R/test/src-test.txt
+output: exp/USPTO_50K_P2S2R_aug20/S2R/overall-shuffle-average_model_96-100-results.txt
+gpu: 0
+beam_size: 10
+n_best: 10
+batch_size: 4096
+batch_type: tokens
+max_length: 500
+seed: 0
+
