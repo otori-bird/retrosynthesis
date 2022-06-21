@@ -10,7 +10,7 @@ Zhong et al's Root-aligned SMILES: A Tight Representation for Chemical Reaction 
 In this work, we propose root-aligned SMILES (R-SMILES), which specifies a tightly aligned one-to-one mapping between the product and the reactant SMILES, to narrow the string representation discrepancy for more efficient retrosynthesis.
 Here we provide the source code of our method.
 
-## Dataset
+## Data and Model
 
 USPTO-50K: https://github.com/Hanjun-Dai/GLN
 
@@ -18,9 +18,9 @@ USPTO-MIT: https://github.com/wengong-jin/nips17-rexgen/blob/master/USPTO/data.z
 
 USPTO-FULL: https://github.com/Hanjun-Dai/GLN
 
-Our augmented datasets and checkpoints: https://drive.google.com/drive/folders/1c15h6TNU6MSNXzqB6dQVMWOs2Aae8hs6?usp=sharing
+Our augmented datasets, checkpoints and 200 examples of attention maps: https://drive.google.com/drive/folders/1c15h6TNU6MSNXzqB6dQVMWOs2Aae8hs6?usp=sharing
 
-## Environment Prepare
+## Environment Preparation
 
 Please make sure you have installed anaconda. The version about `pytorch` and `cudatoolkit` should be depended on your machine. The version of `pytorch` should not be smaller than 1.6 according to the OpenNMT-py.
 
