@@ -136,7 +136,7 @@ We have placed all the config files in the `pretrain_finetune` and `train-from-s
 
 ## Train from scratch
 
-* Step 1: Just run the prepared shell command to start pretraining according to your pretrain dataset.
+* Step 1: Just run the prepared shell command to start training according to your task.
 
   ```shell
   bash shell_cmds/p2r_50k_from_scratch.sh
