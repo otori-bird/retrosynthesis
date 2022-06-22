@@ -99,6 +99,13 @@ We have placed all the config files in the `pretrain_finetune` and `train-from-s
   It is the same procedure for  `generate_RtoP_data` and `generate_PtoStoR_data`.
 
 
+  ```shell
+  python preprocessing/generate_RtoP_data.py -dataset USPTO-MIT -augmentation 5 -processes 8 -separated
+  python preprocessing/generate_RtoP_data.py -dataset USPTO-MIT -augmentation 5 -processes 8 -postfix _mixed
+  python preprocessing/generate_PtoStoR_data.py -dataset USPTO_50K -augmentation 20 -processes 8
+  ```
+
+
 
 ## Pretrain and Finetune
 
@@ -260,6 +267,51 @@ We have placed all the config files in the `pretrain_finetune` and `train-from-s
   	-mode <'retro' or 'forward'>
   	-forewad_mode <'separated' or 'mixed'>
   	-augmenation <times of augmentation>
+  ```
+
+
+* Here is an example to run the script and results:
+
+  ```shell
+  python preprocessing/get_R-SMILES.py -rxn '[O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH2:7][OH:8])[cH:9][cH:10][c:11]1[F:12]>>[O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH:7]=[O:8])[cH:9][cH:10][c:11]1[F:12]' \
+  -augmentation 10
+
+  Namespace(augmentation=10, forward_mode='separated', mode='retro', processes=-1, rxn='[O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH2:7][OH:8])[cH:9][cH:10][c:11]1[F:12]>>[O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH:7]=[O:8])[cH:9][cH:10][c:11]1[F:12]', seed=33)
+  Original input: [O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH:7]=[O:8])[cH:9][cH:10][c:11]1[F:12]
+  Original output: [O:1]=[N+:2]([O-:3])[c:4]1[cH:5][c:6]([CH2:7][OH:8])[cH:9][cH:10][c:11]1[F:12]
+  Canonical input: O=Cc1ccc(F)c([N+](=O)[O-])c1
+  Canonical output: O=[N+]([O-])c1cc(CO)ccc1F
+  ID:0
+  R-SMILES input:O=Cc1ccc(F)c([N+](=O)[O-])c1
+  R-SMILES output:OCc1ccc(F)c([N+](=O)[O-])c1
+  ID:1
+  R-SMILES input:O=Cc1ccc(F)c([N+](=O)[O-])c1
+  R-SMILES output:OCc1ccc(F)c([N+](=O)[O-])c1
+  ID:2
+  R-SMILES input:c1([N+](=O)[O-])cc(C=O)ccc1F
+  R-SMILES output:c1([N+](=O)[O-])cc(CO)ccc1F
+  ID:3
+  R-SMILES input:C(=O)c1ccc(F)c([N+](=O)[O-])c1
+  R-SMILES output:C(O)c1ccc(F)c([N+](=O)[O-])c1
+  ID:4
+  R-SMILES input:c1cc(F)c([N+](=O)[O-])cc1C=O
+  R-SMILES output:c1cc(F)c([N+](=O)[O-])cc1CO
+  ID:5
+  R-SMILES input:c1c(C=O)ccc(F)c1[N+](=O)[O-]
+  R-SMILES output:c1c(CO)ccc(F)c1[N+](=O)[O-]
+  ID:6
+  R-SMILES input:c1(C=O)ccc(F)c([N+](=O)[O-])c1
+  R-SMILES output:c1(CO)ccc(F)c([N+](=O)[O-])c1
+  ID:7
+  R-SMILES input:c1(F)ccc(C=O)cc1[N+](=O)[O-]
+  R-SMILES output:c1(F)ccc(CO)cc1[N+](=O)[O-]
+  ID:8
+  R-SMILES input:[N+](=O)([O-])c1cc(C=O)ccc1F
+  R-SMILES output:[N+](=O)([O-])c1cc(CO)ccc1F
+  ID:9
+  R-SMILES input:[O-][N+](=O)c1cc(C=O)ccc1F
+  R-SMILES output:[O-][N+](=O)c1cc(CO)ccc1F
+  Avg. edit distance: 1.0
   ```
 
 
