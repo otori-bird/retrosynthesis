@@ -27,9 +27,8 @@ Please make sure you have installed anaconda. The version about `pytorch` and `c
 ```shell
 conda create -n r-smiles python=3.7 \
 conda activate r-smiles \
-conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge \
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
 pip install pandas==1.3.4 \
-pip install torchtext==0.5.0 \
 pip install textdistance==4.2.2 \
 conda install rdkit=2020.09.1.0 -c rdkit \
 pip install OpenNMT-py==2.2.0
