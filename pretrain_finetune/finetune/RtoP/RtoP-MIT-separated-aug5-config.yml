@@ -15,7 +15,6 @@ src_seq_length: 1000
 tgt_seq_length: 1000
 overwrite: 'true'
 
-
 train_from: exp/USPTO_full_pretrain_aug5_reactant_masked_token/pretrain_model_step_1000000.pt
 reset_optim: 'all'
 save_model: exp/USPTO-MIT_RtoP_aug5_separated/finetuned_model.reactants-products

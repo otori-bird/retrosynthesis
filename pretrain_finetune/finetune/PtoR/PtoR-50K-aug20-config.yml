@@ -21,7 +21,7 @@ save_model: exp/USPTO_50K_PtoR_aug20/finetune_model.product-reactants
 save_checkpoint_steps: 10000
 keep_checkpoint: 40
 seed: 3435
-train_steps: 600000
+train_steps: 300000
 valid_steps: 50000
 warmup_steps: 8000
 report_every: 1000

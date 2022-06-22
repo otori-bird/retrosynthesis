@@ -21,7 +21,7 @@ save_model: exp/USPTO-MIT_PtoR_aug5/finetuned_model.product-reactants
 save_checkpoint_steps: 10000
 keep_checkpoint: 20
 seed: 3435
-train_steps: 2400000
+train_steps: 500000
 valid_steps: 50000
 warmup_steps: 8000
 report_every: 1000

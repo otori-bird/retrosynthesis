@@ -1,8 +1,6 @@
-model: exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_model.reactants-products_step_440000.pt
-#model: exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_46-50.pt
+model: exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_96-100.pt
 src: dataset/USPTO-MIT_RtoP_aug5_mixed/test/src-test.txt
-#output:  exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_46-50-results.txt
-output:  exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_model.reactants-products_step_440000-results.txt
+output:  exp/USPTO-MIT_RtoP_aug5_mixed/finetuned_average_model_96-100-results.txt
 gpu: 0
 beam_size: 10
 n_best: 10

@@ -1,6 +1,6 @@
-model: exp/USPTO_full_PtoR_aug5/finetuned_average_model_156-160.pt
+model: exp/USPTO_full_PtoR_aug5/finetuned_average_model_46-50.pt
 src: dataset/USPTO_full_PtoR_aug5/test/src-test.txt
-output: exp/USPTO_full_PtoR_aug5/finetuned_average_model_156-160-results.txt
+output: exp/USPTO_full_PtoR_aug5/finetuned_average_model_46-50-results.txt
 gpu: 0
 beam_size: 10
 n_best: 10

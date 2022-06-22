@@ -1,6 +1,6 @@
-model: exp/USPTO-MIT_RtoP_aug5_separated/finetuned_average_model_196-200.pt
+model: exp/USPTO-MIT_RtoP_aug5_separated/finetuned_average_model_96-100.pt
 src: dataset/USPTO-MIT_RtoP_aug5_separated/test/src-test.txt
-output:  exp/USPTO-MIT_RtoP_aug5_separated/finetuned_average_model_196-200-results.txt
+output:  exp/USPTO-MIT_RtoP_aug5_separated/finetuned_average_model_96-100-results.txt
 gpu: 0
 beam_size: 10
 n_best: 10
