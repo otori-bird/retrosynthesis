@@ -345,7 +345,7 @@ onmt_translate -config <the path of config file>
 
 ### Forward Prediction
 
-Top-50 exact match accuracy of  on the USPTO-MIT.
+Top-50 exact match accuracy on the USPTO-MIT.
 
 Reagents Separated:
 
@@ -354,7 +354,8 @@ Reagents Separated:
 | Molecular Transformer | 90.5     | 93.7     | 95.3     | 96.0     | 96.5     |
 | MEGAN                 | 89.3     | 92.7     | 95.6     | 96.7     | 97.5     |
 | Augmented Transformer | 91.9     | 95.4     | 97.0     | -        | -        |
-| Ours                  | **92.3** | **95.9** | **97.5** | **98.1** | **98.5** |
+| Chemformer            | **92.8** | -        | 94.9     | 95.0     | -        |
+| Ours                  | 92.3     | **95.9** | **97.5** | **98.1** | **98.5** |
 
 Reagents Mixed:
 
@@ -363,12 +364,13 @@ Reagents Mixed:
 | Molecular Transformer | 88.7     | 92.1     | 94.2     | 94.9     | 95.4     |
 | MEGAN                 | 86.3     | 90.3     | 94.0     | 95.4     | 96.6     |
 | Augmented Transformer | 90.4     | 94.6     | 96.5     | -        | -        |
-| Ours                  | **91.0** | **95.0** | **96.8** | **97.0** | **97.3** |
+| Chemformer            | **91.3** | -        | 93.7     | 94.0     | -        |
+| Ours                  | 91.0     | **95.0** | **96.8** | **97.0** | **97.3** |
 
 
 ### Retrosynthesis
 
-Top-50 exact match accuracy of  on the USPTO-50K.
+Top-50 exact match accuracy on the USPTO-50K.
 
 
 | Model      | Top-1    | Top-3    | Top-5    | Top-10   | Top-20   | Top-50   |
@@ -377,7 +379,8 @@ Top-50 exact match accuracy of  on the USPTO-50K.
 | RetroPrime | 51.4     | 70.8     | 74.0     | 76.1     | -        | -        |
 | AT         | 53.5     | -        | 81.0     | 85.7     | -        | -        |
 | LocalRetro | 53.4     | 77.5     | 85.9     | **92.4** | -        | **97.7** |
-| Ours       | **56.3** | **79.2** | **86.2** | **91.0** | **93.1** | **94.6** |
+| Ours(P2S2R)| 49.1     | 68.4     | 75.8     | 82.2     | 85.1     | 88.7     |
+| Ours(P2R)  | **56.3** | **79.2** | **86.2** | **91.0** | **93.1** | **94.6** |
 
 Top-50 exact match accuracy on the USPTO-MIT.
 
@@ -387,7 +390,7 @@ Top-50 exact match accuracy on the USPTO-MIT.
 | LocalRetro    | 54.1     | 73.7     | 79.4     | 84.4     | -        | 90.4     |
 | AutopSynRoute | 54.1     | 71.8     | 76.9     | 81.8     | -        | -        |
 | RetroTRAE     | 58.3     | -        | -        | -        | -        | -        |
-| Ours          | **60.3** | **78.2** | **83.2** | **87.3** | **89.7** | **91.6** |
+| Ours(P2R)     | **60.3** | **78.2** | **83.2** | **87.3** | **89.7** | **91.6** |
 
 
 
@@ -399,7 +402,7 @@ Top-50 exact match accuracy on the USPTO-FULL.
 | RetroPrime | 44.1     | -        | -        | 68.5     | -        | -        |
 | AT         | 46.2     | -        | -        | 73.3     | -        | -        |
 | LocalRetro | 39.1     | 53.3     | 58.4     | 63.7     | 67.5     | 70.7     |
-| Ours       | **48.9** | **66.6** | **72.0** | **76.4** | **80.4** | **83.1** |
+| Ours(P2R)  | **48.9** | **66.6** | **72.0** | **76.4** | **80.4** | **83.1** |
 
 
 
