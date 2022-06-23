@@ -272,7 +272,6 @@ if __name__ == '__main__':
     parser.add_argument('-forward_mode',type=str,default="separated",)
     parser.add_argument("-augmentation",type=int,default=1)
     parser.add_argument("-seed",type=int,default=33)
-    parser.add_argument("-processes",type=int,default=-1)
     args = parser.parse_args()
     print(args)
     reactant,reagent,product = args.rxn.split(">")
