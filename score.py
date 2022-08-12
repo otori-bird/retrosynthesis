@@ -127,7 +127,6 @@ def main(opt):
     topn_accuracy_ringopening = [0 for _ in range(opt.n_best)]
     topn_accuracy_ringformation = [0 for _ in range(opt.n_best)]
     topn_accuracy_woring = [0 for _ in range(opt.n_best)]
-    topn_contain = [0 for _ in range(opt.n_best)]
     total_chirality = 0
     total_ringopening = 0
     total_ringformation = 0
@@ -176,14 +175,6 @@ def main(opt):
         rank.sort(key=lambda x:x[1],reverse=True)
         rank = rank[:opt.n_best]
         ranked_results.append([item[0][0] for item in rank])
-        # final_ranks.append(rank)
-        p_tokens = smi_tokenizer(ground_truth[i][0]).split()
-        p_dict = {}
-        for token in p_tokens:
-            if len(re.findall(r"[A-Za-z]", token)) > 0:
-                token = token.upper()
-                token = "".join(re.split(r'[^A-Za-z]', token))[0]
-            p_dict[token] = p_dict.get(token, 0) + 1
 
         for j, item in enumerate(rank):
             if item[0][0] == ground_truth[i][0]:
@@ -210,23 +201,6 @@ def main(opt):
                             for k in range(j,opt.n_best):
                                 topn_accuracy_woring[k] += 1
 
-
-            r_tokens = smi_tokenizer(item[0][0]).split()
-            r_dict = {}
-            for token in r_tokens:
-                if len(re.findall(r"[A-Za-z]", token)) > 0:
-                    token = token.upper()
-                    token = "".join(re.split(r'[^A-Za-z]', token))[0]
-                r_dict[token] = r_dict.get(token, 0) + 1
-            contain_flag = True
-            for key in p_dict.keys():
-                atom = Chem.MolFromSmiles(key)
-                if atom is not None:
-                    if p_dict[key] > r_dict.get(key, 0):
-                        contain_flag = False
-                        break
-            topn_contain[j] += contain_flag
-
         if opt.detailed and not accurate_flag:
             atomsize_topk.append((size,opt.n_best))
         for j, item in enumerate(rank):
@@ -243,7 +217,6 @@ def main(opt):
         # if i in range(10):
             print("Top-{} Acc:{:.3f}%, MaxFrag {:.3f}%,".format(i+1,accuracy[i] / data_size * 100,max_frag_accuracy[i] / data_size * 100),
                   " Invalid SMILES:{:.3f}% Sorted Invalid SMILES:{:.3f}%".format(invalid_rates[i] / data_size / opt.augmentation * 100,sorted_invalid_rates[i] / data_size / opt.augmentation * 100))
-            # print("Rank-{} Contain Acc:{:.3f}%".format(i+1,topn_contain[i] / data_size * 100))
 
     print("Unique Rates:{:.3f}%".format(unique_rates / data_size / opt.beam_size * 100))
 
