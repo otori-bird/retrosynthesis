@@ -142,6 +142,7 @@ def main(opt):
             print("Detailed Mode needs the sources.")
             exit(1)
         with open(opt.sources,"r") as f:
+            lines = f.readlines()
             ras_src_smiles = [''.join(lines[i].strip().split(' ')) for i in tqdm(range(0,data_size * opt.augmentation,opt.augmentation))]
 
     for i in tqdm(range(len(predictions))):
