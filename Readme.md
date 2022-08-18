@@ -2,9 +2,9 @@
 
 ![cross-attention](imgs/attention_rotated.png) 
 
- [[arxiv](https://arxiv.org/abs/2203.11444)]
+ [[arxiv](https://arxiv.org/abs/2203.11444)] [[chemical science]](https://doi.org/10.1039/D2SC02763A)
 
-The directory contains source code of the unpublished article:
+The directory contains source code of the article:
 Zhong et al's Root-aligned SMILES: A Tight Representation for Chemical Reaction Prediction.
 
 In this work, we propose root-aligned SMILES (R-SMILES), which specifies a tightly aligned one-to-one mapping between the product and the reactant SMILES, to narrow the string representation discrepancy for more efficient retrosynthesis.
