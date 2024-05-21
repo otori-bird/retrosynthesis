@@ -387,6 +387,123 @@ def multi_process(data):
     return return_status
 
 
+def get_50k_testset(uspto_50k_datadir):
+    csv_path = f"{uspto_50k_datadir}/raw_test.csv"
+    csv = pd.read_csv(csv_path)
+    reaction_list = list(csv["reactants>reagents>production"])
+    reactant_smarts_list = list(
+        map(lambda x: x.split('>')[0], reaction_list))
+    reactant_smarts_list = list(
+        map(lambda x: x.split(' ')[0], reactant_smarts_list))
+    reagent_smarts_list = list(
+        map(lambda x: x.split('>')[1], reaction_list))
+    product_smarts_list = list(
+        map(lambda x: x.split('>')[2], reaction_list))
+    product_smarts_list = list(
+        map(lambda x: x.split(' ')[0], product_smarts_list))  # remove ' |f:1...'
+
+    sub_react_list = reactant_smarts_list
+    sub_prod_list = product_smarts_list
+
+    # duplicate multiple product reactions into multiple ones with one product each
+    multiple_product_indices = [i for i in range(len(sub_prod_list)) if "." in sub_prod_list[i]]
+    for index in multiple_product_indices:
+        products = sub_prod_list[index].split(".")
+        for product in products:
+            sub_react_list.append(sub_react_list[index])
+            sub_prod_list.append(product)
+    for index in multiple_product_indices[::-1]:
+        del sub_react_list[index]
+        del sub_prod_list[index]
+    res = sub_react_list + sub_prod_list
+
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    results = pool.map(func=clear_map_canonical_smiles,iterable=res)
+    pool.close()
+    pool.join()
+    # res = [clear_map_canonical_smiles(s) for s in res]
+    return results
+
+def get_mit_testset(uspto_mit_datadir):
+    with open(os.path.join(uspto_mit_datadir,"test.txt"),"r") as f:
+        reaction_list = f.readlines()
+        reactant_smarts_list = list(
+            map(lambda x: x.split('>>')[0], reaction_list))
+        product_smarts_list = list(
+            map(lambda x: x.split('>>')[1], reaction_list))
+        product_smarts_list = list(
+            map(lambda x: x.split(' ')[0], product_smarts_list))
+        multiple_product_indices = [i for i in range(len(product_smarts_list)) if "." in product_smarts_list[i]]
+        for index in multiple_product_indices:
+            products = product_smarts_list[index].split(".")
+            for product in products:
+                reactant_smarts_list.append(reactant_smarts_list[index])
+                product_smarts_list.append(product)
+        for index in multiple_product_indices[::-1]:
+            del reactant_smarts_list[index]
+            del product_smarts_list[index]
+    res = reactant_smarts_list + product_smarts_list
+
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    results = pool.map(func=clear_map_canonical_smiles,iterable=res)
+    pool.close()
+    pool.join()
+    # res = [clear_map_canonical_smiles(s) for s in res]
+
+    return results
+
+def get_full_dataset(uspto_full_datadir, data_set, mode, validastrain):
+    csv_path = f"{uspto_full_datadir}/raw_{data_set}.csv"
+    csv = pd.read_csv(csv_path)
+    reaction_list = list(csv["reactants>reagents>production"])
+    if validastrain and data_set == "train":
+        csv_path = f"{uspto_full_datadir}/raw_val.csv"
+        csv = pd.read_csv(csv_path)
+        reaction_list += list(csv["reactants>reagents>production"])
+
+    random.shuffle(reaction_list)
+    reactant_smarts_list = list(
+        map(lambda x: x.split('>')[0], reaction_list))
+    reactant_smarts_list = list(
+        map(lambda x: x.split(' ')[0], reactant_smarts_list))
+    product_smarts_list = list(
+        map(lambda x: x.split('>')[2], reaction_list))
+    product_smarts_list = list(
+        map(lambda x: x.split(' ')[0], product_smarts_list))  # remove ' |f:1...'
+
+
+    if mode == "reactant":
+        sub_prod_list = reactant_smarts_list
+    elif mode == "product":
+        sub_prod_list = product_smarts_list
+        # duplicate multiple product reactions into multiple ones with one product each
+        multiple_product_indices = [i for i in range(len(sub_prod_list)) if "." in sub_prod_list[i]]
+        for index in multiple_product_indices:
+            products = sub_prod_list[index].split(".")
+            for product in products:
+                sub_prod_list.append(product)
+        for index in multiple_product_indices[::-1]:
+            del sub_prod_list[index]
+    else:
+        sub_prod_list = product_smarts_list
+        # duplicate multiple product reactions into multiple ones with one product each
+        multiple_product_indices = [i for i in range(len(sub_prod_list)) if "." in sub_prod_list[i]]
+        for index in multiple_product_indices:
+            products = sub_prod_list[index].split(".")
+            for product in products:
+                sub_prod_list.append(product)
+        for index in multiple_product_indices[::-1]:
+            del sub_prod_list[index]
+        sub_prod_list += reactant_smarts_list
+
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    results = pool.map(func=clear_map_canonical_smiles,iterable=sub_prod_list)
+    pool.close()
+    pool.join()
+    # sub_prod_list = [clear_map_canonical_smiles(s) for s in sub_prod_list]
+
+    return results
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-augmentation",type=int,default=1)
@@ -417,58 +534,27 @@ if __name__ == '__main__':
     else:
         postfix = ""
     assert args.mode in ['both','product','reactant']
-    datadir = './dataset/USPTO_full'
+    uspto_full_datadir = './dataset/USPTO_full'
+    uspto_mit_datadir = './dataset/USPTO-MIT'
+    uspto_50k_datadir = './dataset/USPTO_50K'
+
     savedir = './dataset/USPTO_full_pretrain_aug{}'.format(args.augmentation)
 
     savedir += postfix
+
+    exclude_molecules = set(get_50k_testset(uspto_50k_datadir) + get_mit_testset(uspto_mit_datadir))
+    print("The number of molecules in USPTO-50K and USPTO-MIT: ", len(exclude_molecules))
+
     if not os.path.exists(savedir):
         os.makedirs(savedir)
     for i, data_set in enumerate(datasets):
-        csv_path = f"{datadir}/raw_{data_set}.csv"
-        csv = pd.read_csv(csv_path)
-        reaction_list = list(csv["reactants>reagents>production"])
-        if args.validastrain and data_set == "train":
-            csv_path = f"{datadir}/raw_val.csv"
-            csv = pd.read_csv(csv_path)
-            reaction_list += list(csv["reactants>reagents>production"])
-
-        random.shuffle(reaction_list)
-        reactant_smarts_list = list(
-            map(lambda x: x.split('>')[0], reaction_list))
-        reactant_smarts_list = list(
-            map(lambda x: x.split(' ')[0], reactant_smarts_list))
-        product_smarts_list = list(
-            map(lambda x: x.split('>')[2], reaction_list))
-        product_smarts_list = list(
-            map(lambda x: x.split(' ')[0], product_smarts_list))  # remove ' |f:1...'
-        print("Total Data Size", len(reaction_list))
-
         save_dir = os.path.join(savedir, data_set)
-
-        if args.mode == "reactant":
-            sub_prod_list = reactant_smarts_list
-        elif args.mode == "product":
-            sub_prod_list = product_smarts_list
-            # duplicate multiple product reactions into multiple ones with one product each
-            multiple_product_indices = [i for i in range(len(sub_prod_list)) if "." in sub_prod_list[i]]
-            for index in multiple_product_indices:
-                products = sub_prod_list[index].split(".")
-                for product in products:
-                    sub_prod_list.append(product)
-            for index in multiple_product_indices[::-1]:
-                del sub_prod_list[index]
-        else:
-            sub_prod_list = product_smarts_list
-            # duplicate multiple product reactions into multiple ones with one product each
-            multiple_product_indices = [i for i in range(len(sub_prod_list)) if "." in sub_prod_list[i]]
-            for index in multiple_product_indices:
-                products = sub_prod_list[index].split(".")
-                for product in products:
-                    sub_prod_list.append(product)
-            for index in multiple_product_indices[::-1]:
-                del sub_prod_list[index]
-            sub_prod_list += reactant_smarts_list
-
+        sub_prod_list = get_full_dataset(uspto_full_datadir,data_set,args.mode, args.validastrain)
+        print("The number of molecules before exculsion: ", len(sub_prod_list))
+        # exclude the molecules in USPTO_50K and USPTO-MIT
+        sub_prod_list = [item for item in sub_prod_list if item not in exclude_molecules]
+        print("The number of molecules after exculsion: ", len(sub_prod_list))
+        
         src_data, tgt_data = preprocess(
             save_dir,
             sub_prod_list,
